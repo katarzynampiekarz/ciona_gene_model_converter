@@ -50,7 +50,10 @@ The output file ("converter_results.csv") will be generated automatically.
 The input can be a single gene or a batch input (one gene per line).
 Example input format: KY21.Chr1.1. (just gene identifier closed with a dot, without transcription variant annotations).
 KY21 genes go into the left input field, the right input field is meant for KH genes. Paste your query in the appropriate input field and click "Get equivalent gene". Use the "Clear input" button to clear the input fields before submitting a new query.
-The output is automatically copied to clipboard.
+The output is automatically copied to clipboard.  
+
+![GUI_explained](https://user-images.githubusercontent.com/117316002/205154763-eaa3bbf5-b3a6-4eca-94f3-de5a7b1f3c30.png)
+
 ## How to run
 * ### Version without GUI
 * ### Version with GUI
