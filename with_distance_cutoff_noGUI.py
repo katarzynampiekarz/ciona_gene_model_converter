@@ -3,7 +3,7 @@ import re
 import numpy as np
 
 """
-This program converts gene identifiers between KY and KH2 gene models for Ciona intestinalis.
+This program converts gene identifiers between KY and KH gene models for Ciona intestinalis.
 
 The input file should be a csv file with a column containing genes to be converted, with column name either "kh" or "ky".
 Example input format: KY21.Chr1.1. (just gene identifier closed with a dot, without transcription variant annotations).
