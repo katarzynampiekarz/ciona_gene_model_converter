@@ -6,7 +6,7 @@ from tkinter import messagebox
 import pyperclip
 
 """
-This program converts gene identifiers between KY and KH2 gene models for Ciona intestinalis.
+This program converts gene identifiers between KY and KH gene models for Ciona intestinalis.
 
 The input can be a single gene or a batch input (one gene per line).
 Example input format: KY21.Chr1.1. (just gene identifier closed with a dot, without transcription variant annotations).
