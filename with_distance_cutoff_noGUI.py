@@ -14,8 +14,10 @@ Gene model source: http://ghost.zool.kyoto-u.ac.jp/default_ht.html
 """
 
 # provide in parentheses below the path to your file with gene list
-query = pd.read_csv("test_kh.csv")
+query = pd.read_csv("")
+# you can adjust the distance cutoff (default: 500bp)
 cutoff = 500
+
 
 kh2013 = pd.read_csv("kh2013_all.csv")
 ky21 = pd.read_csv("ky21_all.csv")
