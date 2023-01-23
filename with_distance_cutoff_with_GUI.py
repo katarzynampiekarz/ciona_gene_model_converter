@@ -76,7 +76,7 @@ def get_ky21_gene_batch(line, cutoff):
                         text_ky.insert(END, ky.group(0))
                         break
 
-                if eq == None:
+                if not eq:
                     ky_sorted = np.sort(ky21_chr['start'])
                     ky_list = []
                     for i in range(len(starts)):
@@ -121,7 +121,7 @@ def get_ky21_gene_batch(line, cutoff):
                         text_ky.insert(END, ky.group(0))
                         break
 
-                if eq == None:
+                if not eq:
                     ky_sorted = np.sort(ky21_chr['end'])
                     ky_list_ends = []
                     for i in range(len(ends)):
@@ -192,32 +192,35 @@ def get_kh2013_gene_batch(line, cutoff):
                         text_kh.insert(END, kh.group(0))
                         break
 
-                if eq == None:
+                if not eq:
                     kh_sorted = np.sort(kh2013_chr['start'])
-                    kh_list = []
-                    for i in range(len(starts)):
-                        indR = np.searchsorted(kh_sorted, starts[i])
-                        if indR >= len(kh_sorted):
-                            valR = kh_sorted[indR - 1]
-                            valL = kh_sorted[indR - 2]
-                        else:
-                            valR = kh_sorted[indR]
-                            valL = kh_sorted[indR-1]
+                    if len(kh_sorted) == 0:
+                        eq = "No equivalent"
+                    else:
+                        kh_list = []
+                        for i in range(len(starts)):
+                            indR = np.searchsorted(kh_sorted, starts[i])
+                            if indR >= len(kh_sorted):
+                                valR = kh_sorted[indR - 1]
+                                valL = kh_sorted[indR - 2]
+                            else:
+                                valR = kh_sorted[indR]
+                                valL = kh_sorted[indR-1]
 
-                        if abs(int(valR) - starts[i]) > abs(int(valL) - starts[i]):
-                            val = valL
-                        else:
-                            val = valR
+                            if abs(int(valR) - starts[i]) > abs(int(valL) - starts[i]):
+                                val = valL
+                            else:
+                                val = valR
 
-                        if abs(val - starts[i]) > cutoff:
-                            eq = "No equivalent"
+                            if abs(val - starts[i]) > cutoff:
+                                eq = "No equivalent"
 
-                        else:
-                            rows = kh2013_chr.loc[(kh2013_chr['start'] == val)]
-                            kh_name = rows['name'].values[0]
-                            kh = re.search(r".*?(?=v)", kh_name)
-                            kh_list.append(kh.group(0))
-                            eq = kh_list[0]
+                            else:
+                                rows = kh2013_chr.loc[(kh2013_chr['start'] == val)]
+                                kh_name = rows['name'].values[0]
+                                kh = re.search(r".*?(?=v)", kh_name)
+                                kh_list.append(kh.group(0))
+                                eq = kh_list[0]
                     text_kh.insert(END, eq)
 
             elif strands[0] == "-":
@@ -237,33 +240,36 @@ def get_kh2013_gene_batch(line, cutoff):
                         text_kh.insert(END, kh.group(0))
                         break
 
-                if eq == None:
+                if not eq:
                     kh_sorted = np.sort(kh2013_chr['end'])
-                    kh_list_ends = []
-                    for i in range(len(ends)):
-                        indR = np.searchsorted(kh_sorted, ends[0])
-                        if indR >= len(kh_sorted):
-                            valR = kh_sorted[indR - 1]
-                            valL = kh_sorted[indR - 2]
-                        else:
-                            valR = kh_sorted[indR]
-                            valL = kh_sorted[indR - 1]
+                    if len(kh_sorted) == 0:
+                        eq = "No equivalent"
+                    else:
+                        kh_list_ends = []
+                        for i in range(len(ends)):
+                            indR = np.searchsorted(kh_sorted, ends[i])
+                            if indR >= len(kh_sorted):
+                                valR = kh_sorted[indR - 1]
+                                valL = kh_sorted[indR - 2]
+                            else:
+                                valR = kh_sorted[indR]
+                                valL = kh_sorted[indR - 1]
 
-                        if abs(int(valR) - ends[i]) > abs(int(valL) - ends[i]):
-                            val = valL
-                        else:
-                            val = valR
+                            if abs(int(valR) - ends[i]) > abs(int(valL) - ends[i]):
+                                val = valL
+                            else:
+                                val = valR
 
-                        if abs(val - ends[i]) > cutoff:
-                            eq = "No equivalent"
+                            if abs(val - ends[i]) > cutoff:
+                                eq = "No equivalent"
 
 
-                        else:
-                            rows = kh2013_chr.loc[(kh2013_chr['end'] == val)]
-                            kh_name = rows['name'].values[0]
-                            kh = re.search(r".*?(?=v)", kh_name)
-                            kh_list_ends.append(kh.group(0))
-                            eq = kh_list_ends[0]
+                            else:
+                                rows = kh2013_chr.loc[(kh2013_chr['end'] == val)]
+                                kh_name = rows['name'].values[0]
+                                kh = re.search(r".*?(?=v)", kh_name)
+                                kh_list_ends.append(kh.group(0))
+                                eq = kh_list_ends[0]
                     text_kh.insert(END, eq)
 
         else:
@@ -295,7 +301,7 @@ window.config(padx=40, pady=40, bg="black")
 
 canvas = Canvas(width=350, height=50, bg="black", highlightthickness=0)
 logo_img = PhotoImage(file="ciona.png")
-canvas.create_image(200, 20, image=logo_img)  #position of the center of the image
+canvas.create_image(200, 20, image=logo_img)
 canvas.grid(row=0, column=0, columnspan=3)
 
 input_label_left = Label(text="KY21 example input format:\nKY21.Chr1.1.", font=("Arial", 9, "normal"), fg="white",
