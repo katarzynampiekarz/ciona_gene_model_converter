@@ -64,7 +64,7 @@ def get_ky21_gene_batch(gene_kh, cutoff):
                     eq = ky.group(0)
                     break
 
-            if eq == None:
+            if not eq:
                 ky_sorted = np.sort(ky21_chr['start'])
                 ky_list = []
                 for i in range(len(starts)):
@@ -91,7 +91,6 @@ def get_ky21_gene_batch(gene_kh, cutoff):
                         ky_list.append(ky.group(0))
 
                 eq = ky_list[0]
-                #print(ky_list)
 
         elif strands[0] == "-":
             ky21_chr = ky21_chr[ky21_chr['strand'] == "-"]
@@ -100,7 +99,7 @@ def get_ky21_gene_batch(gene_kh, cutoff):
             for index, row in kh2013_chr.iterrows():
                 if kh2013_chr['name'][index][0:n] == gene_kh:
                     ends.append(kh2013_chr['end'][index])
-            #print("ends: ", ends)
+           
             for i in range(len(ends)):
                 if ends[i] in ky21_chr['end'].values:
                     rows = ky21_chr.loc[(ky21_chr['end'] == ends[i])]
@@ -108,8 +107,8 @@ def get_ky21_gene_batch(gene_kh, cutoff):
                     ky = re.search(r".*?(?=v)", ky_name)
                     eq = ky.group(0)
                     break
-            #print("eq: ", eq)
-            if eq == None:
+            
+            if not eq:
                 ky_sorted = np.sort(ky21_chr['end'])
                 ky_list_ends = []
                 for i in range(len(ends)):
@@ -120,12 +119,12 @@ def get_ky21_gene_batch(gene_kh, cutoff):
                     else:
                         valR = ky_sorted[indR]
                         valL = ky_sorted[indR - 1]
-                    #print("valR: ", valR, "valL: ", valL)
+                    
                     if abs(int(valR) - ends[i]) > abs(int(valL) - ends[i]):
                         val = valL
                     else:
                         val = valR
-                    #print(val, ends[i])
+                    
                     if abs(val - ends[i]) > cutoff:
                         eq = "No equivalent"
                     else:
@@ -134,7 +133,7 @@ def get_ky21_gene_batch(gene_kh, cutoff):
                         ky = re.search(r".*?(?=v)", ky_name)
                         ky_list_ends.append(ky.group(0))
                     eq = ky_list_ends[0]
-                    #print("ky_list_ends: ", ky_list_ends)
+                   
     finally:
         return eq
 
@@ -170,32 +169,35 @@ def get_kh2013_gene_batch(gene_ky21, cutoff):
                     eq = kh.group(0)
                     break
 
-            if eq == None:
+            if not eq:
                 kh_sorted = np.sort(kh2013_chr['start'])
-                kh_list = []
-                for i in range(len(starts)):
-                    indR = np.searchsorted(kh_sorted, starts[i])
-                    if indR >= len(kh_sorted):
-                        valR = kh_sorted[indR - 1]
-                        valL = kh_sorted[indR - 2]
-                    else:
-                        valR = kh_sorted[indR]
-                        valL = kh_sorted[indR-1]
+                if len(kh_sorted) == 0:
+                    eq = "No equivalent"
+                else:
+                    kh_list = []
+                    for i in range(len(starts)):
+                        indR = np.searchsorted(kh_sorted, starts[i])
+                        if indR >= len(kh_sorted):
+                            valR = kh_sorted[indR - 1]
+                            valL = kh_sorted[indR - 2]
+                        else:
+                            valR = kh_sorted[indR]
+                            valL = kh_sorted[indR-1]
 
-                    if abs(int(valR) - starts[i]) > abs(int(valL) - starts[i]):
-                        val = valL
-                    else:
-                        val = valR
+                        if abs(int(valR) - starts[i]) > abs(int(valL) - starts[i]):
+                            val = valL
+                        else:
+                            val = valR
 
-                    if abs(val - starts[i]) > cutoff:
-                        eq = "No equivalent"
+                        if abs(val - starts[i]) > cutoff:
+                            eq = "No equivalent"
 
-                    else:
-                        rows = kh2013_chr.loc[(kh2013_chr['start'] == val)]
-                        kh_name = rows['name'].values[0]
-                        kh = re.search(r".*?(?=v)", kh_name)
-                        kh_list.append(kh.group(0))
-                        eq = kh_list[0]
+                        else:
+                            rows = kh2013_chr.loc[(kh2013_chr['start'] == val)]
+                            kh_name = rows['name'].values[0]
+                            kh = re.search(r".*?(?=v)", kh_name)
+                            kh_list.append(kh.group(0))
+                            eq = kh_list[0]
 
         elif strands[0] == "-":
             kh2013_chr = kh2013_chr[kh2013_chr['strand'] == "-"]
@@ -213,32 +215,35 @@ def get_kh2013_gene_batch(gene_ky21, cutoff):
                     eq = kh.group(0)
                     break
 
-            if eq == None:
+            if not eq:
                 kh_sorted = np.sort(kh2013_chr['end'])
-                kh_list_ends = []
-                for i in range(len(ends)):
-                    indR = np.searchsorted(kh_sorted, ends[0])
-                    if indR >= len(kh_sorted):
-                        valR = kh_sorted[indR - 1]
-                        valL = kh_sorted[indR - 2]
-                    else:
-                        valR = kh_sorted[indR]
-                        valL = kh_sorted[indR - 1]
+                if len(kh_sorted) == 0:
+                    eq = "No equivalent"
+                else:
+                    kh_list_ends = []
+                    for i in range(len(ends)):
+                        indR = np.searchsorted(kh_sorted, ends[0])
+                        if indR >= len(kh_sorted):
+                            valR = kh_sorted[indR - 1]
+                            valL = kh_sorted[indR - 2]
+                        else:
+                            valR = kh_sorted[indR]
+                            valL = kh_sorted[indR - 1]
 
-                    if abs(int(valR) - ends[i]) > abs(int(valL) - ends[i]):
-                        val = valL
-                    else:
-                        val = valR
+                        if abs(int(valR) - ends[i]) > abs(int(valL) - ends[i]):
+                            val = valL
+                        else:
+                            val = valR
 
-                    if abs(val - ends[i]) > cutoff:
-                        eq = "No equivalent"
+                        if abs(val - ends[i]) > cutoff:
+                            eq = "No equivalent"
 
-                    else:
-                        rows = kh2013_chr.loc[(kh2013_chr['end'] == val)]
-                        kh_name = rows['name'].values[0]
-                        kh = re.search(r".*?(?=v)", kh_name)
-                        kh_list_ends.append(kh.group(0))
-                        eq = kh_list_ends[0]
+                        else:
+                            rows = kh2013_chr.loc[(kh2013_chr['end'] == val)]
+                            kh_name = rows['name'].values[0]
+                            kh = re.search(r".*?(?=v)", kh_name)
+                            kh_list_ends.append(kh.group(0))
+                            eq = kh_list_ends[0]
 
     else:
         eq = "No equivalent"
