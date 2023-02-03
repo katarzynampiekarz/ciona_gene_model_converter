@@ -38,7 +38,7 @@ Choose the proper chromosome/contig from the dropdown list and paste the KY21 ge
 ## How to run
 * ### Version with GUI
 There are several ways to run the program, some examples include:
-1) Simply double-click on the executable file ("with_distance_cutoff_with_GUI.exe") - no IDE or terminal use needed
+1) Simply double-click on the executable file ("with_distance_cutoff_with_GUI_updated.exe") - no IDE or terminal use needed
 2) Type "cmd" in the address bar in the file explorer (shown below), after the terminal opens, type "python with_distance_cutoff_with_GUI.py"  
 <p align="center">
 <img src="https://user-images.githubusercontent.com/117316002/205354321-5d181d24-83e1-41cc-8e5b-a6c41f63a356.png" width="270">
