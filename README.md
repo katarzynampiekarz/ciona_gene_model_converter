@@ -74,3 +74,7 @@ The output is automatically copied to clipboard.
 ## Disclaimer
 
 Since there is no 1:1 equivalency in gene positions in different gene models, sometimes the converter can erroneously identify a gene as an equivalent. Those mistakes can happen more often, if the distance cutoff is set to a large number, or if a gene is located in a problematic area with many overlapping genes. Always validate manually key genes of interest, before basing any decisions on the converter's output.
+
+## How to cite
+
+Katarzyna M Piekarz (2023). Ciona Gene Model Converter. Available from https://github.com/katarzynampiekarz/ciona_gene_model_converter
