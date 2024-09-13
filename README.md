@@ -7,6 +7,7 @@ This program converts gene identifiers between KY and KH gene models for _Ciona 
 Any issues can be reported to kpiekarz3@gatech.edu  
 Image source (GUI): FABA https://www.bpni.bio.keio.ac.jp/chordate/faba/1.4/top.html  
 Gene model source: http://ghost.zool.kyoto-u.ac.jp/default_ht.html  
+The accompanying short paper can be found [here](https://osf.io/preprints/osf/h8wz5)
 
 The program originally coverts between KY21 and KH2013 gene models, but it also works with KH2012.  
 There are two versions of the program: with and without the graphical user interface (GUI). GUI may be easier to run for an inexperienced user,
@@ -77,4 +78,4 @@ Since there is no 1:1 equivalency in gene positions in different gene models, so
 
 ## How to cite
 
-Katarzyna M Piekarz (2023). Ciona Gene Model Converter. Available from https://github.com/katarzynampiekarz/ciona_gene_model_converter
+Piekarz K, and Stolfi A. 2024. “Ciona Gene Model Converter: A Tool for an Easy Conversion of Gene Identifiers Between Ciona Intestinalis Type A (C. Robusta) KH2013 and KY21 Gene Models.” OSF Preprints. September 13. doi:10.31219/osf.io/h8wz5.
